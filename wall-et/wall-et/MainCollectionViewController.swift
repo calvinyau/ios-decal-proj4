@@ -24,8 +24,9 @@ class MainCollectionViewController: UICollectionViewController {
     }
     
     override func viewDidLoad() {
-        dictionaryOfItemsAndPrices = ["calvin" : 10, "sunny" : 20, "justin" : 30]
-        dictionaryOfItemsAndSavings = ["calvin" : 0, "sunny" : 1, "justin" : 2]
+        //example items
+        dictionaryOfItemsAndPrices = ["banana" : 10]
+        dictionaryOfItemsAndSavings = ["banana" : 1]
         super.viewDidLoad()
         self.collectionView?.backgroundColor = UIColor.whiteColor()
     }
@@ -54,8 +55,16 @@ class MainCollectionViewController: UICollectionViewController {
         let name = keys[indexPath.row]
         
         cell.itemName.text = name
-        cell.itemSavings.text = "$" + String(dictionaryOfItemsAndSavings[name]!) + " / " + "$" + String(dictionaryOfItemsAndPrices[name]!)
+        cell.itemPrice.text = "Price: $" + String(dictionaryOfItemsAndPrices[name]!)
+        
         //add progress circle
+        var savedOverPrice = Float(dictionaryOfItemsAndSavings[name]!)/Float(dictionaryOfItemsAndPrices[name]!)
+        let percentage = savedOverPrice * 100.0
+        let percentageString = String(Int(percentage)) + "%"
+        if savedOverPrice == 0 {
+            savedOverPrice += 0.005
+        }
+        addCircleView(0.0, end: CGFloat(savedOverPrice), y: CGFloat(10 + indexPath.row * 100), savedOverPricing: percentageString)
         
         let cSelector = Selector("reset:")
         let leftSwipe = UISwipeGestureRecognizer(target: self, action: cSelector)
@@ -75,10 +84,17 @@ class MainCollectionViewController: UICollectionViewController {
         }))
         
         deleteAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            
+            for view in self.view.subviews {
+                if view.isKindOfClass(CircleBar) || view.isKindOfClass(UILabel) {
+                    view.removeFromSuperview()
+                }
+            }
+            
             self.dictionaryOfItemsAndPrices.removeValueForKey(cell.itemName.text!)
             self.dictionaryOfItemsAndSavings.removeValueForKey(cell.itemName.text!)
             self.dictionaryOfItemsAndDates.removeValueForKey(cell.itemName.text!)
-            self.collectionView?.reloadData() // replace favoritesCV with your own collection view.
+            self.collectionView?.reloadData()
         }))
         
         presentViewController(deleteAlert, animated: true, completion: nil)
@@ -112,6 +128,24 @@ class MainCollectionViewController: UICollectionViewController {
             finishedViewController.dictionaryOfFinishedItemsAndDates = dictionaryOfFinishedItemsAndDates
             finishedViewController.mainViewController = self
         }
+    }
+    
+    func addCircleView(start: CGFloat, end: CGFloat, y: CGFloat, savedOverPricing: String) {
+        let circleWidth = CGFloat(200)
+        let circleHeight = circleWidth
+        
+        let label = UILabel(frame: CGRectMake(0, y, circleWidth, circleHeight))
+        label.textAlignment = NSTextAlignment.Center
+        label.text = savedOverPricing
+        self.view.addSubview(label)
+        
+        // Create a new CircleBar
+        let circleView = CircleBar(frame: CGRectMake(0, y, circleWidth, circleHeight))
+        
+        view.addSubview(circleView)
+        
+        // Animate the drawing of the circle over the course of 1 second from start to end
+        circleView.animateCircle(2.0, startValue: start, endValue: end)
     }
     
 }

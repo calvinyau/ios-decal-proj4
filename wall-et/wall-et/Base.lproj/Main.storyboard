@@ -106,30 +106,30 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="91"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2xj-6o-31b">
-                                            <rect key="frame" x="208" y="35" width="42" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bdl-Se-NGV">
+                                            <rect key="frame" x="345" y="23" width="47" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bdl-Se-NGV">
-                                            <rect key="frame" x="345" y="35" width="47" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aoP-Zm-su8">
+                                            <rect key="frame" x="345" y="50" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="2xj-6o-31b" firstAttribute="centerY" secondItem="Ckf-d5-Rig" secondAttribute="centerY" id="0Nr-tX-Oc1"/>
-                                    <constraint firstItem="2xj-6o-31b" firstAttribute="leading" secondItem="Ckf-d5-Rig" secondAttribute="leadingMargin" constant="175" id="7qc-IG-wEY"/>
-                                    <constraint firstItem="bdl-Se-NGV" firstAttribute="centerY" secondItem="Ckf-d5-Rig" secondAttribute="centerY" id="WMk-s3-cI5"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="aoP-Zm-su8" secondAttribute="trailing" constant="175" id="5sA-hV-o6G"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="aoP-Zm-su8" secondAttribute="bottom" constant="10" id="GyO-bI-cVk"/>
+                                    <constraint firstItem="bdl-Se-NGV" firstAttribute="top" secondItem="Ckf-d5-Rig" secondAttribute="topMargin" constant="10" id="Nt9-uG-I9Z"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="bdl-Se-NGV" secondAttribute="trailing" constant="175" id="twg-NQ-qF0"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="itemName" destination="bdl-Se-NGV" id="tIF-jb-V7S"/>
-                                    <outlet property="itemSavings" destination="2xj-6o-31b" id="E6v-tI-P05"/>
+                                    <outlet property="itemPrice" destination="aoP-Zm-su8" id="bxm-GE-kwu"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>

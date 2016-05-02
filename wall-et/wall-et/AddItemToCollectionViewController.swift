@@ -41,6 +41,13 @@ class AddItemToCollectionViewController: UIViewController, UITextFieldDelegate {
             mainViewController.dictionaryOfItemsAndPrices[self.addNameTextField.text!] = Int(self.addPriceTextField.text!)
             mainViewController.dictionaryOfItemsAndDates[self.addNameTextField.text!] = NSDate()
             mainViewController.dictionaryOfItemsAndSavings[addNameTextField.text!] = 0
+            
+            for view in mainViewController.view.subviews {
+                if view.isKindOfClass(CircleBar) || view.isKindOfClass(UILabel) {
+                    view.removeFromSuperview()
+                }
+            }
+            
             mainViewController.collectionView?.reloadData()
             self.performSegueWithIdentifier("unwindToMain", sender: self)
         }

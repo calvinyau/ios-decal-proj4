@@ -30,7 +30,13 @@ class AdjustSavingsForItemViewController: UIViewController, UITextFieldDelegate 
         } else if (mainViewController.dictionaryOfItemsAndSavings[itemName]! + Int(savingsTextField.text!)! < 0) {
             self.presentViewController(negativeAlertController!, animated: true, completion: nil)
         } else {
-            if (Int(savingsTextField.text!) >= mainViewController.dictionaryOfItemsAndPrices[itemName]!) {
+            for view in mainViewController.view.subviews {
+                if view.isKindOfClass(CircleBar) || view.isKindOfClass(UILabel) {
+                    view.removeFromSuperview()
+                }
+            }
+            
+            if (Int(savingsTextField.text!)! + mainViewController.dictionaryOfItemsAndSavings[itemName]! >= mainViewController.dictionaryOfItemsAndPrices[itemName]!) {
                 let finishedKeys = Array(mainViewController.dictionaryOfFinishedItemsAndPrices.keys).sort()
                 if (finishedKeys.contains(itemName)) {
                     var index = 1

@@ -21,6 +21,7 @@
 		F444C1FD1CD69A960003D4DA /* SavingAndSpendingStatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F444C1FC1CD69A960003D4DA /* SavingAndSpendingStatisticsViewController.swift */; };
 		F444C1FF1CD69AAB0003D4DA /* FinishedItemsHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F444C1FE1CD69AAB0003D4DA /* FinishedItemsHistoryViewController.swift */; };
 		F444C2011CD69B660003D4DA /* AdjustSavingsForItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F444C2001CD69B660003D4DA /* AdjustSavingsForItemViewController.swift */; };
+		F491D1CA1CD71F64002367DD /* CircleBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F491D1C91CD71F64002367DD /* CircleBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		F444C1FC1CD69A960003D4DA /* SavingAndSpendingStatisticsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavingAndSpendingStatisticsViewController.swift; sourceTree = "<group>"; };
 		F444C1FE1CD69AAB0003D4DA /* FinishedItemsHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishedItemsHistoryViewController.swift; sourceTree = "<group>"; };
 		F444C2001CD69B660003D4DA /* AdjustSavingsForItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdjustSavingsForItemViewController.swift; sourceTree = "<group>"; };
+		F491D1C91CD71F64002367DD /* CircleBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 			children = (
 				F444C1F71CD698570003D4DA /* controllers */,
 				F444C1C51CD694F80003D4DA /* AppDelegate.swift */,
+				F491D1C91CD71F64002367DD /* CircleBar.swift */,
 				F444C1C71CD694F80003D4DA /* ViewController.swift */,
 				F444C1C91CD694F80003D4DA /* Main.storyboard */,
 				F444C1CF1CD694F80003D4DA /* Assets.xcassets */,
@@ -286,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F444C1CE1CD694F80003D4DA /* wall_et.xcdatamodeld in Sources */,
+				F491D1CA1CD71F64002367DD /* CircleBar.swift in Sources */,
 				F444C1FB1CD69A6C0003D4DA /* AddItemToCollectionViewController.swift in Sources */,
 				F444C1F91CD698770003D4DA /* MainCollectionViewController.swift in Sources */,
 				F429EB431CD6A2A500FBCD92 /* CellViewController.swift in Sources */,

@@ -22,9 +22,10 @@ class MainCollectionViewController: UICollectionViewController {
     }
     
     override func viewDidLoad() {
-        dictionaryOfItemsAndPrices = ["calvin" : 1, "sunny" : 2, "justin" : 3]
+        dictionaryOfItemsAndPrices = ["calvin" : 10, "sunny" : 20, "justin" : 30]
         dictionaryOfItemsAndSavings = ["calvin" : 0, "sunny" : 1, "justin" : 2]
         super.viewDidLoad()
+        self.collectionView?.backgroundColor = UIColor.whiteColor()
     }
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -45,8 +46,6 @@ class MainCollectionViewController: UICollectionViewController {
         bottomBorder.frame = CGRectMake(0, cell.frame.height - 1, cell.frame.width, 1)
         bottomBorder.backgroundColor = UIColor.grayColor().CGColor
         cell.layer.addSublayer(bottomBorder)
-        //cell.layer.borderWidth = 1
-        //cell.layer.borderColor = UIColor.blackColor().CGColor
         
         //load the text and progress circle
         var keys = Array(dictionaryOfItemsAndPrices.keys).sort()
@@ -56,7 +55,20 @@ class MainCollectionViewController: UICollectionViewController {
         cell.itemSavings.text = "$" + String(dictionaryOfItemsAndSavings[name]!) + " / " + "$" + String(dictionaryOfItemsAndPrices[name]!)
         //add progress circle
         
+        let cSelector = Selector("reset:")
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: cSelector)
+        leftSwipe.direction = UISwipeGestureRecognizerDirection.Left
+        cell.addGestureRecognizer(leftSwipe)
+        
         return cell
+    }
+    
+    func reset(sender: UISwipeGestureRecognizer) {
+        let cell = sender.view as! CellViewController
+        dictionaryOfItemsAndPrices.removeValueForKey(cell.itemName.text!)
+        dictionaryOfItemsAndSavings.removeValueForKey(cell.itemName.text!)
+        dictionaryOfItemsAndDates.removeValueForKey(cell.itemName.text!)
+        self.collectionView?.reloadData() // replace favoritesCV with your own collection view.
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -81,7 +93,10 @@ class MainCollectionViewController: UICollectionViewController {
         } else if segue.identifier == "statisticsSegue" {
             //stuff
         } else if segue.identifier == "finishedSegue" {
-            //stuff
+            let finishedViewController = segue.destinationViewController as! FinishedItemsHistoryViewController
+            finishedViewController.dictionaryOfFinishedItemsAndPrices = dictionaryOfFinishedItemsAndPrices
+            finishedViewController.dictionaryOfFinishedItemsAndDates = dictionaryOfFinishedItemsAndDates
+            finishedViewController.mainViewController = self
         }
     }
     

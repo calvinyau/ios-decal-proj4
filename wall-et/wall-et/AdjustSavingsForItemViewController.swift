@@ -49,6 +49,7 @@ class AdjustSavingsForItemViewController: UIViewController, UITextFieldDelegate 
             } else {
                 mainViewController.dictionaryOfItemsAndSavings[itemName!] = mainViewController.dictionaryOfItemsAndSavings[itemName!]! + Int(savingsTextField.text!)!
             }
+            mainViewController.dictionaryOfDatesAndSavings[NSDate()] = Int(savingsTextField.text!)
             mainViewController.collectionView?.reloadData()
             self.performSegueWithIdentifier("unwindToMainFromAdjust", sender: self)
         }

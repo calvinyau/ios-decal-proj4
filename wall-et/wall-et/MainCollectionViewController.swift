@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class MainCollectionViewController: UICollectionViewController {
     
@@ -15,6 +16,7 @@ class MainCollectionViewController: UICollectionViewController {
     var dictionaryOfItemsAndDates = [String : NSDate]()
     var dictionaryOfFinishedItemsAndPrices = [String : Int]()
     var dictionaryOfFinishedItemsAndDates = [String : NSDate]()
+    var dictionaryOfDatesAndSavings = [NSDate : Int]()
     var selectedItem : String!
     
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
@@ -65,10 +67,21 @@ class MainCollectionViewController: UICollectionViewController {
     
     func reset(sender: UISwipeGestureRecognizer) {
         let cell = sender.view as! CellViewController
-        dictionaryOfItemsAndPrices.removeValueForKey(cell.itemName.text!)
-        dictionaryOfItemsAndSavings.removeValueForKey(cell.itemName.text!)
-        dictionaryOfItemsAndDates.removeValueForKey(cell.itemName.text!)
-        self.collectionView?.reloadData() // replace favoritesCV with your own collection view.
+        
+        let deleteAlert = UIAlertController(title: "Wall-Et", message: "Delete \"" + cell.itemName.text! + "\"?", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action: UIAlertAction!) in
+            //do nothing
+        }))
+        
+        deleteAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            self.dictionaryOfItemsAndPrices.removeValueForKey(cell.itemName.text!)
+            self.dictionaryOfItemsAndSavings.removeValueForKey(cell.itemName.text!)
+            self.dictionaryOfItemsAndDates.removeValueForKey(cell.itemName.text!)
+            self.collectionView?.reloadData() // replace favoritesCV with your own collection view.
+        }))
+        
+        presentViewController(deleteAlert, animated: true, completion: nil)
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -91,7 +104,8 @@ class MainCollectionViewController: UICollectionViewController {
             let addViewController = segue.destinationViewController as! AddItemToCollectionViewController
             addViewController.mainViewController = self
         } else if segue.identifier == "statisticsSegue" {
-            //stuff
+            let statisticsViewController = segue.destinationViewController as! SavingAndSpendingStatisticsViewController
+            statisticsViewController.dictionaryOfDatesAndSavings = dictionaryOfDatesAndSavings
         } else if segue.identifier == "finishedSegue" {
             let finishedViewController = segue.destinationViewController as! FinishedItemsHistoryViewController
             finishedViewController.dictionaryOfFinishedItemsAndPrices = dictionaryOfFinishedItemsAndPrices

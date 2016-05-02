@@ -14,4 +14,5 @@ class CellViewController: UICollectionViewCell {
     @IBOutlet weak var itemFinishedDate: UILabel!
     @IBOutlet weak var itemFinishedName: UILabel!
     @IBOutlet weak var itemFinishedPrice: UILabel!
+    @IBOutlet weak var finishedTitle: UILabel!
 }

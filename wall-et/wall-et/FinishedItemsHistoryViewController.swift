@@ -26,29 +26,38 @@ class FinishedItemsHistoryViewController: UICollectionViewController {
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dictionaryOfFinishedItemsAndPrices.count
+        return dictionaryOfFinishedItemsAndPrices.count + 1
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("finishedCell", forIndexPath: indexPath) as! CellViewController
         
+        if (indexPath.row == 0) {
+            cell.finishedTitle.text = "Finished Items"
+            cell.itemFinishedName.text = ""
+            cell.itemFinishedDate.text = ""
+            cell.itemFinishedPrice.text = ""
+        } else {
+            cell.finishedTitle.text = ""
+            
+            var keys = Array(dictionaryOfFinishedItemsAndPrices.keys).sort()
+            let name = keys[indexPath.row - 1]
+        
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let dateString = dateFormatter.stringFromDate(dictionaryOfFinishedItemsAndDates[name]!)
+        
+            cell.itemFinishedName.text = name
+            cell.itemFinishedPrice.text = "Item Price: $" + String(dictionaryOfFinishedItemsAndPrices[name]!)
+            cell.itemFinishedDate.text = "Completed: " + dateString
+        }
+        
         collectionView.backgroundColor = UIColor.whiteColor()
         let bottomBorder = CALayer()
         bottomBorder.frame = CGRectMake(0, cell.frame.height - 1, cell.frame.width, 1)
         bottomBorder.backgroundColor = UIColor.lightGrayColor().CGColor
         cell.layer.addSublayer(bottomBorder)
-
-        var keys = Array(dictionaryOfFinishedItemsAndPrices.keys).sort()
-        let name = keys[indexPath.row]
-        
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let dateString = dateFormatter.stringFromDate(dictionaryOfFinishedItemsAndDates[name]!)
-        
-        cell.itemFinishedName.text = name
-        cell.itemFinishedPrice.text = "Item Price: $" + String(dictionaryOfFinishedItemsAndPrices[name]!)
-        cell.itemFinishedDate.text = "Completed: " + dateString
         
         let cSelector = Selector("reset:")
         let leftSwipe = UISwipeGestureRecognizer(target: self, action: cSelector)
@@ -60,11 +69,22 @@ class FinishedItemsHistoryViewController: UICollectionViewController {
     
     func reset(sender: UISwipeGestureRecognizer) {
         let cell = sender.view as! CellViewController
-        dictionaryOfFinishedItemsAndPrices.removeValueForKey(cell.itemFinishedName.text!)
-        dictionaryOfFinishedItemsAndDates.removeValueForKey(cell.itemFinishedName.text!)
-        mainViewController.dictionaryOfFinishedItemsAndPrices.removeValueForKey(cell.itemFinishedName.text!)
-        mainViewController.dictionaryOfFinishedItemsAndDates.removeValueForKey(cell.itemFinishedName.text!)
-        self.collectionView?.reloadData() // replace favoritesCV with your own collection view.
+        
+        let deleteAlert = UIAlertController(title: "Wall-Et", message: "Delete \"" + cell.itemFinishedName.text! + "\"?", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action: UIAlertAction!) in
+            //do nothing
+        }))
+        
+        deleteAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            self.dictionaryOfFinishedItemsAndPrices.removeValueForKey(cell.itemFinishedName.text!)
+            self.dictionaryOfFinishedItemsAndDates.removeValueForKey(cell.itemFinishedName.text!)
+            self.mainViewController.dictionaryOfFinishedItemsAndPrices.removeValueForKey(cell.itemFinishedName.text!)
+            self.mainViewController.dictionaryOfFinishedItemsAndDates.removeValueForKey(cell.itemFinishedName.text!)
+            self.collectionView?.reloadData()
+        }))
+        
+        presentViewController(deleteAlert, animated: true, completion: nil)
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {

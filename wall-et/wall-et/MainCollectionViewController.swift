@@ -26,7 +26,7 @@ class MainCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         //example items
         dictionaryOfItemsAndPrices = ["banana" : 10]
-        dictionaryOfItemsAndSavings = ["banana" : 1]
+        dictionaryOfItemsAndSavings = ["banana" : 0]
         super.viewDidLoad()
         self.collectionView?.backgroundColor = UIColor.whiteColor()
     }

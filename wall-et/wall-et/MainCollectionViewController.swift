@@ -12,6 +12,7 @@ class MainCollectionViewController: UICollectionViewController {
     
     var dictionaryOfItemsAndPrices = [String : Int]()
     var dictionaryOfItemsAndSavings = [String : Int]()
+    var selectedItem : String!
     
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
         
@@ -56,18 +57,17 @@ class MainCollectionViewController: UICollectionViewController {
     
     override func collectionView(collectionView: UICollectionView,
         didSelectItemAtIndexPath indexPath: NSIndexPath) {
-            //change the segue
-            //performSegueWithIdentifier("singlePhotoSelectSegue", sender: indexPath)
+            var keys = Array(dictionaryOfItemsAndPrices.keys).sort()
+            selectedItem = keys[indexPath.row]
+            performSegueWithIdentifier("singleItemSelectSegue", sender: indexPath)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "singleItemSelectSegue" {
-            //change accordingly
-            //let singlePhotoViewController = segue.destinationViewController as! SinglePhotoViewController
-            //let indexPath = sender as! NSIndexPath
-            //singlePhotoViewController.singlePhoto = photos[indexPath.row]
+            let singleItemViewController = segue.destinationViewController as! AdjustSavingsForItemViewController
+            singleItemViewController.itemName = selectedItem!
+            singleItemViewController.mainViewController = self
         } else if segue.identifier == "addSegue" {
-            //stuff
             let addViewController = segue.destinationViewController as! AddItemToCollectionViewController
             addViewController.mainViewController = self
         } else if segue.identifier == "statisticsSegue" {

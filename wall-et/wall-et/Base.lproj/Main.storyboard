@@ -146,12 +146,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Item Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTS-rF-7PV">
-                                <rect key="frame" x="146" y="193" width="42" height="26"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Item Price:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TJR-IX-fq6">
                                 <rect key="frame" x="146" y="336" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -165,6 +159,12 @@
                                 </constraints>
                                 <state key="normal" title="Add"/>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Item Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTS-rF-7PV">
+                                <rect key="frame" x="146" y="193" width="42" height="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -205,10 +205,48 @@
                     <view key="view" contentMode="scaleToFill" id="qLY-sm-8hG">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mb9-lh-uJ9">
+                                <rect key="frame" x="404" y="255" width="100" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="15K-ZB-9ct"/>
+                                    <constraint firstAttribute="width" constant="100" id="hZP-KP-4AV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6c-py-bBc">
+                                <rect key="frame" x="250" y="396" width="100" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="aGs-WF-pKy"/>
+                                </constraints>
+                                <state key="normal" title="Update"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Item Savings:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s6h-uZ-iGr">
+                                <rect key="frame" x="117" y="257" width="42" height="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mb9-lh-uJ9" firstAttribute="top" secondItem="yNr-79-lTp" secondAttribute="bottom" constant="191" id="J1J-P5-TFY"/>
+                            <constraint firstItem="x6c-py-bBc" firstAttribute="centerX" secondItem="qLY-sm-8hG" secondAttribute="centerX" id="OvK-ZN-mjJ"/>
+                            <constraint firstItem="IpS-zT-uSI" firstAttribute="top" secondItem="x6c-py-bBc" secondAttribute="bottom" constant="174" id="WKx-7x-ciQ"/>
+                            <constraint firstItem="s6h-uZ-iGr" firstAttribute="leading" secondItem="qLY-sm-8hG" secondAttribute="leadingMargin" constant="50" id="igu-RY-J3p"/>
+                            <constraint firstItem="s6h-uZ-iGr" firstAttribute="top" secondItem="yNr-79-lTp" secondAttribute="bottom" constant="193" id="nSi-Af-1IZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mb9-lh-uJ9" secondAttribute="trailing" constant="50" id="xhn-gw-49K"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="savingsTextField" destination="mb9-lh-uJ9" id="XuO-PM-ccf"/>
+                        <outlet property="updateButton" destination="x6c-py-bBc" id="0rJ-IJ-HAp"/>
+                        <segue destination="xvH-hc-fyr" kind="unwind" identifier="unwindToMainFromAdjust" unwindAction="prepareForUnwind:" id="l9G-Rz-SgO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EQG-Zc-ih3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="xvH-hc-fyr" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1049" y="946"/>
         </scene>

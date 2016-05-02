@@ -28,12 +28,11 @@ class AddItemToCollectionViewController: UIViewController, UITextFieldDelegate {
     }
     
     func addButtonFunction() {
-        let goodCharacters = NSCharacterSet.decimalDigitCharacterSet()
         if (addNameTextField.text!.isEmpty) {
             self.presentViewController(nameAlertController!, animated: true, completion: nil)
         } else if (mainViewController.dictionaryOfItemsAndPrices.keys.contains(addNameTextField.text!)) {
             self.presentViewController(repeatAlertController!, animated: true, completion: nil)
-        } else if (addPriceTextField.text!.rangeOfCharacterFromSet(goodCharacters) == nil) {
+        } else if (Int(addPriceTextField.text!) == nil) {
             self.presentViewController(priceAlertController!, animated: true, completion: nil)
         } else {
             mainViewController.dictionaryOfItemsAndPrices[self.addNameTextField.text!] = Int(self.addPriceTextField.text!)

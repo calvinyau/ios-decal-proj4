@@ -12,6 +12,9 @@ class MainCollectionViewController: UICollectionViewController {
     
     var dictionaryOfItemsAndPrices = [String : Int]()
     var dictionaryOfItemsAndSavings = [String : Int]()
+    var dictionaryOfItemsAndDates = [String : NSDate]()
+    var dictionaryOfFinishedItemsAndPrices = [String : Int]()
+    var dictionaryOfFinishedItemsAndDates = [String : NSDate]()
     var selectedItem : String!
     
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
@@ -38,12 +41,17 @@ class MainCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! CellViewController
         
         collectionView.backgroundColor = UIColor.whiteColor()
-        cell.layer.borderWidth = 1
-        cell.layer.borderColor = UIColor.blackColor().CGColor
+        let bottomBorder = CALayer()
+        bottomBorder.frame = CGRectMake(0, cell.frame.height - 1, cell.frame.width, 1)
+        bottomBorder.backgroundColor = UIColor.grayColor().CGColor
+        cell.layer.addSublayer(bottomBorder)
+        //cell.layer.borderWidth = 1
+        //cell.layer.borderColor = UIColor.blackColor().CGColor
         
         //load the text and progress circle
         var keys = Array(dictionaryOfItemsAndPrices.keys).sort()
         let name = keys[indexPath.row]
+        
         cell.itemName.text = name
         cell.itemSavings.text = "$" + String(dictionaryOfItemsAndSavings[name]!) + " / " + "$" + String(dictionaryOfItemsAndPrices[name]!)
         //add progress circle
@@ -71,6 +79,8 @@ class MainCollectionViewController: UICollectionViewController {
             let addViewController = segue.destinationViewController as! AddItemToCollectionViewController
             addViewController.mainViewController = self
         } else if segue.identifier == "statisticsSegue" {
+            //stuff
+        } else if segue.identifier == "finishedSegue" {
             //stuff
         }
     }

@@ -20,6 +20,7 @@ class AddItemToCollectionViewController: UIViewController, UITextFieldDelegate {
     var nameAlertController : UIAlertController?
     var repeatAlertController : UIAlertController?
     var priceAlertController : UIAlertController?
+    var negativeAlertController : UIAlertController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +35,11 @@ class AddItemToCollectionViewController: UIViewController, UITextFieldDelegate {
             self.presentViewController(repeatAlertController!, animated: true, completion: nil)
         } else if (Int(addPriceTextField.text!) == nil) {
             self.presentViewController(priceAlertController!, animated: true, completion: nil)
+        } else if (Int(addPriceTextField.text!) <= 0) {
+            self.presentViewController(negativeAlertController!, animated: true, completion: nil)
         } else {
             mainViewController.dictionaryOfItemsAndPrices[self.addNameTextField.text!] = Int(self.addPriceTextField.text!)
+            mainViewController.dictionaryOfItemsAndDates[self.addNameTextField.text!] = NSDate()
             mainViewController.dictionaryOfItemsAndSavings[addNameTextField.text!] = 0
             mainViewController.collectionView?.reloadData()
             self.performSegueWithIdentifier("unwindToMain", sender: self)
@@ -58,6 +62,9 @@ class AddItemToCollectionViewController: UIViewController, UITextFieldDelegate {
         priceAlertController = UIAlertController(title: "Wall-Et", message:
             "Price Must Be A Number!", preferredStyle: UIAlertControllerStyle.Alert)
         priceAlertController!.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+        negativeAlertController = UIAlertController(title: "Wall-Et", message:
+            "No Zero or Negative Prices!", preferredStyle: UIAlertControllerStyle.Alert)
+        negativeAlertController!.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
     }
     
     override func didReceiveMemoryWarning() {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FinishedItemsHistoryViewController: UIViewController {
+class FinishedItemsHistoryViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()

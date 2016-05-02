@@ -16,6 +16,7 @@ class AdjustSavingsForItemViewController: UIViewController, UITextFieldDelegate 
     var itemName : String!
     
     var savingsAlertController : UIAlertController?
+    var negativeAlertController : UIAlertController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +27,28 @@ class AdjustSavingsForItemViewController: UIViewController, UITextFieldDelegate 
     func updateButtonFunction() {
         if (Int(savingsTextField.text!) == nil) {
             self.presentViewController(savingsAlertController!, animated: true, completion: nil)
+        } else if (Int(savingsTextField.text!) <= 0) {
+            self.presentViewController(negativeAlertController!, animated: true, completion: nil)
         } else {
-            mainViewController.dictionaryOfItemsAndSavings[itemName!] = Int(savingsTextField.text!)
+            if (Int(savingsTextField.text!) >= mainViewController.dictionaryOfItemsAndPrices[itemName]!) {
+                let finishedKeys = Array(mainViewController.dictionaryOfFinishedItemsAndPrices.keys).sort()
+                if (finishedKeys.contains(itemName)) {
+                    var index = 1
+                    while (finishedKeys.contains(itemName + " (copy " + String(index) + ")")) {
+                        index += 1
+                    }
+                    mainViewController.dictionaryOfFinishedItemsAndPrices[itemName + " (copy " + String(index) + ")"] = mainViewController.dictionaryOfItemsAndPrices[itemName]!
+                    mainViewController.dictionaryOfFinishedItemsAndDates[itemName + " (copy " + String(index) + ")"] = NSDate()
+                } else {
+                    mainViewController.dictionaryOfFinishedItemsAndPrices[itemName] = mainViewController.dictionaryOfItemsAndPrices[itemName]!
+                    mainViewController.dictionaryOfFinishedItemsAndDates[itemName] = NSDate()
+                }
+                mainViewController.dictionaryOfItemsAndPrices.removeValueForKey(itemName)
+                mainViewController.dictionaryOfItemsAndSavings.removeValueForKey(itemName)
+                mainViewController.dictionaryOfItemsAndDates.removeValueForKey(itemName)
+            } else {
+                mainViewController.dictionaryOfItemsAndSavings[itemName!] = Int(savingsTextField.text!)
+            }
             mainViewController.collectionView?.reloadData()
             self.performSegueWithIdentifier("unwindToMainFromAdjust", sender: self)
         }
@@ -42,6 +63,9 @@ class AdjustSavingsForItemViewController: UIViewController, UITextFieldDelegate 
         savingsAlertController = UIAlertController(title: "Wall-Et", message:
             "Savings Must Be A Number!", preferredStyle: UIAlertControllerStyle.Alert)
         savingsAlertController!.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+        negativeAlertController = UIAlertController(title: "Wall-Et", message:
+            "No Zero or Negative Savings!", preferredStyle: UIAlertControllerStyle.Alert)
+        negativeAlertController!.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
     }
     
     override func didReceiveMemoryWarning() {

@@ -42,9 +42,11 @@ class AddItemToCollectionViewController: UIViewController, UITextFieldDelegate {
             mainViewController.dictionaryOfItemsAndDates[self.addNameTextField.text!] = NSDate()
             mainViewController.dictionaryOfItemsAndSavings[addNameTextField.text!] = 0
             
-            for view in mainViewController.view.subviews {
-                if view.isKindOfClass(CircleBar) || view.isKindOfClass(UILabel) {
-                    view.removeFromSuperview()
+            for cell in mainViewController.collectionView!.visibleCells() as [UICollectionViewCell] {
+                for view in cell.subviews {
+                    if view.isKindOfClass(CircleBar) || view.isKindOfClass(UILabel) {
+                        view.removeFromSuperview()
+                    }
                 }
             }
             

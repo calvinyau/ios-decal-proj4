@@ -30,9 +30,11 @@ class AdjustSavingsForItemViewController: UIViewController, UITextFieldDelegate 
         } else if (mainViewController.dictionaryOfItemsAndSavings[itemName]! + Int(savingsTextField.text!)! < 0) {
             self.presentViewController(negativeAlertController!, animated: true, completion: nil)
         } else {
-            for view in mainViewController.view.subviews {
-                if view.isKindOfClass(CircleBar) || view.isKindOfClass(UILabel) {
-                    view.removeFromSuperview()
+            for cell in mainViewController.collectionView!.visibleCells() as [UICollectionViewCell] {
+                for view in cell.subviews {
+                    if view.isKindOfClass(CircleBar) || view.isKindOfClass(UILabel) {
+                        view.removeFromSuperview()
+                    }
                 }
             }
             

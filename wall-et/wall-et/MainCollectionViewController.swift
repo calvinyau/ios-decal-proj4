@@ -64,7 +64,7 @@ class MainCollectionViewController: UICollectionViewController {
         if savedOverPrice == 0 {
             savedOverPrice += 0.005
         }
-        addCircleView(0.0, end: CGFloat(savedOverPrice), y: CGFloat(10 + indexPath.row * 100), savedOverPricing: percentageString)
+        cell.addCircleView(0.0, end: CGFloat(savedOverPrice), x: CGFloat(100), y: CGFloat(-50), savedOverPricing: percentageString)
         
         let cSelector = Selector("reset:")
         let leftSwipe = UISwipeGestureRecognizer(target: self, action: cSelector)
@@ -85,9 +85,11 @@ class MainCollectionViewController: UICollectionViewController {
         
         deleteAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
             
-            for view in self.view.subviews {
-                if view.isKindOfClass(CircleBar) || view.isKindOfClass(UILabel) {
-                    view.removeFromSuperview()
+            for cell in self.collectionView!.visibleCells() as [UICollectionViewCell] {
+                for view in cell.subviews {
+                    if view.isKindOfClass(CircleBar) || view.isKindOfClass(UILabel) {
+                        view.removeFromSuperview()
+                    }
                 }
             }
             
@@ -128,24 +130,6 @@ class MainCollectionViewController: UICollectionViewController {
             finishedViewController.dictionaryOfFinishedItemsAndDates = dictionaryOfFinishedItemsAndDates
             finishedViewController.mainViewController = self
         }
-    }
-    
-    func addCircleView(start: CGFloat, end: CGFloat, y: CGFloat, savedOverPricing: String) {
-        let circleWidth = CGFloat(200)
-        let circleHeight = circleWidth
-        
-        let label = UILabel(frame: CGRectMake(0, y, circleWidth, circleHeight))
-        label.textAlignment = NSTextAlignment.Center
-        label.text = savedOverPricing
-        self.view.addSubview(label)
-        
-        // Create a new CircleBar
-        let circleView = CircleBar(frame: CGRectMake(0, y, circleWidth, circleHeight))
-        
-        view.addSubview(circleView)
-        
-        // Animate the drawing of the circle over the course of 1 second from start to end
-        circleView.animateCircle(2.0, startValue: start, endValue: end)
     }
     
 }
